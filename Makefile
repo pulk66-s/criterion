@@ -1,6 +1,9 @@
 CC				= gcc
-CFLAGS			= -W -Wall -Wextra -g3
-SRC				= src/main.c
+INCLUDES		= -Isrc/
+CFLAGS			= -W -Wall -Wextra -g3 $(INCLUDES)
+SRC				= src/main.c \
+				src/launcher/config.c \
+				src/launcher/launch.c
 OBJ				= $(SRC:.c=.o)
 NAME			= criterion
 
