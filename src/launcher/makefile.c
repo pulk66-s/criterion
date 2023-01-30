@@ -7,7 +7,7 @@
 static char *makefile_lines[] = {
     "CC = gcc",
     "INCLUDES = -I./src",
-    "CFLAGS = -W -Wall -Wextra $(INCLUDES)",
+    "CFLAGS = -W -Wall -Wextra $(INCLUDES) -g3",
     "NAME = ./tmp/criterion_compiled_sources",
     "OBJ = $(SRC:.c=.o)",
     "",

@@ -12,7 +12,7 @@ SRC = 	src/lib/asserts/string.c \
 
 CC = gcc
 INCLUDES = -I./src
-CFLAGS = -W -Wall -Wextra $(INCLUDES)
+CFLAGS = -W -Wall -Wextra $(INCLUDES) -g3
 NAME = ./tmp/criterion_compiled_sources
 OBJ = $(SRC:.c=.o)
 

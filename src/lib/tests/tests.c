@@ -38,3 +38,9 @@ struct test *get_current_test()
 {
     return current_test;
 }
+
+void clear_tests()
+{
+    free_tests(tests);
+    free(tests);
+}
