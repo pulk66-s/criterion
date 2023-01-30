@@ -1,4 +1,5 @@
 #include "launcher/get_files.h"
+#include "launcher/files_utils.h"
 #include <dirent.h>
 #include <string.h>
 #include <sys/types.h>
@@ -19,23 +20,6 @@ static int is_cfile(const char *name)
     return name[name_size - 1] == 'c' && name[name_size - 2] == '.';
 }
 
-static char *build_file_path(const char *folder_name, const char *file_name)
-{
-    char *file_path = NULL;
-    size_t file_name_size = strlen(file_name);
-    size_t folder_name_size = strlen(folder_name);
-    size_t file_path_size = file_name_size + folder_name_size + 1;
-
-    if (folder_name[folder_name_size - 1] != '/')
-        file_path_size++;
-    file_path = malloc(sizeof(char) * file_path_size);
-    memset(file_path, 0, file_path_size);
-    strcat(file_path, folder_name);
-    if (folder_name[folder_name_size - 1] != '/')
-        strcat(file_path, "/");
-    strcat(file_path, file_name);
-    return file_path;
-}
 
 static int is_builtin_folder(const char *file_name)
 {

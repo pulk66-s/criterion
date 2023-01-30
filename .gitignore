@@ -1,2 +1,4 @@
 *.o
 criterion
+criterion_compiled_sources
+.vscode

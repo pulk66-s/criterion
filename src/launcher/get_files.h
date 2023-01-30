@@ -4,5 +4,6 @@
     #include "types/files.h"
 
 files_list **get_files(const char *folder);
+char *build_file_path(const char *folder_name, const char *file_name);
 
 #endif
