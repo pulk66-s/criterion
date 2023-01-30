@@ -10,7 +10,7 @@ struct criterion_tests_results {
 };
 
 struct criterion_tests_results criterion_get_results(void);
-void success(void);
-void failure(void);
+void criterion_success(void);
+void criterion_failure(void);
 
 #endif

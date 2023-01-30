@@ -7,6 +7,8 @@ typedef struct linked_list test_list;
 
 struct test {
     char *name;
+    char *group;
+    void (*func)();
 };
 
 void add_test(test_list **tests, struct test test);

@@ -11,7 +11,7 @@ void add_test(test_list **tests, struct test test)
 
 void dump_test(struct test test)
 {
-    printf("Test: %s\n", test.name);
+    printf("Test: %s.%s\n", test.group, test.name);
 }
 
 static void dump_test_ptr(void *test)
@@ -31,6 +31,7 @@ static void free_test(void *ptr)
     struct test *test = ptr;
 
     free(test->name);
+    free(test->group);
 }
 
 void free_tests(test_list **tests)

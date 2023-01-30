@@ -11,13 +11,13 @@ struct criterion_tests_results criterion_get_results(void)
     return results;
 }
 
-void success(void)
+void criterion_success(void)
 {
     ++results.passed;
     ++results.total;
 }
 
-void failure(void)
+void criterion_failure(void)
 {
     ++results.failed;
     ++results.total;

@@ -36,6 +36,7 @@ static char *additionnal_sources[] = {
     "src/types/linked_list.c",
     "src/lib/launch/main.c",
     "src/lib/env/results.c",
+    "src/lib/tests/tests.c",
     NULL
 };
 
