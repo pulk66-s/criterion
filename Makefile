@@ -4,7 +4,8 @@ CFLAGS			= -W -Wall -Wextra -g3 $(INCLUDES)
 SRC				= src/main.c \
 				src/config/folder.c \
 				src/launcher/launch.c \
-				src/types/chained_list.c \
+				src/launcher/get_files.c \
+				src/types/linked_list.c \
 				src/types/files.c
 OBJ				= $(SRC:.c=.o)
 NAME			= criterion
