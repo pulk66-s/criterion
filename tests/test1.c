@@ -33,3 +33,15 @@ Test(output, stdout2)
     printf("Hello2");
     assert_stdout("Hello2");
 }
+
+Test(output, stderr)
+{
+    fprintf(stderr, "Hello");
+    assert_stderr("Hello");
+}
+
+Test(output, stderr2)
+{
+    fprintf(stderr, "Hello2");
+    assert_stderr("Hello");
+}
