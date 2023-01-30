@@ -1,4 +1,5 @@
-SRC = 	src/lib/tests/tests.c \
+SRC = 	src/lib/asserts/asserts.c \
+	src/lib/tests/tests.c \
 	src/lib/env/results.c \
 	src/lib/launch/main.c \
 	src/types/linked_list.c \

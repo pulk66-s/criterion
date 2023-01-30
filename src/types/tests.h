@@ -9,6 +9,7 @@ struct test {
     char *name;
     char *group;
     void (*func)();
+    int success;
 };
 
 void add_test(test_list **tests, struct test test);

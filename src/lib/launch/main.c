@@ -3,16 +3,6 @@
 #include "lib/tests/tests.h"
 #include <stdio.h>
 
-Test(Example, success)
-{
-    printf("Success\n");
-}
-
-Test(Example, success2)
-{
-    printf("Success2\n");
-}
-
 int main(void)
 {
     launch_tests();

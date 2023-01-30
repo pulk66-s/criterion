@@ -11,5 +11,4 @@
         } \
         void name(void)
 
-
 #endif
