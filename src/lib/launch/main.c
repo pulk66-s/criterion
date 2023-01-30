@@ -2,6 +2,7 @@
 #include "lib/tests/macros.h"
 #include "lib/tests/tests.h"
 #include <stdio.h>
+#include "lib/asserts/io.h"
 
 int main(void)
 {

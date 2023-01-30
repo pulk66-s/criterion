@@ -1,4 +1,5 @@
-SRC = 	src/lib/asserts/string.c \
+SRC = 	src/lib/asserts/io.c \
+	src/lib/asserts/string.c \
 	src/lib/asserts/asserts.c \
 	src/lib/tests/tests.c \
 	src/lib/env/results.c \

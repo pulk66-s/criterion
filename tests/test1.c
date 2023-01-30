@@ -1,5 +1,6 @@
 #include "lib/tests/macros.h"
 #include "lib/asserts.h"
+#include <stdio.h>
 
 Test(basic_test, test1)
 {
@@ -19,4 +20,16 @@ Test(string, test1)
 Test(string, test2)
 {
     cr_assert_str_neq("Hello", "Hello");
+}
+
+Test(output, stdout)
+{
+    printf("Hello");
+    assert_stdout("Hello");
+}
+
+Test(output, stdout2)
+{
+    printf("Hello2");
+    assert_stdout("Hello2");
 }

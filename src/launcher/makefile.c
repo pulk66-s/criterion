@@ -39,6 +39,7 @@ static char *additionnal_sources[] = {
     "src/lib/tests/tests.c",
     "src/lib/asserts/asserts.c",
     "src/lib/asserts/string.c",
+    "src/lib/asserts/io.c",
     NULL
 };
 

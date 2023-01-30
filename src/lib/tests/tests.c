@@ -3,6 +3,7 @@
 #include <string.h>
 #include "types/tests.h"
 #include "lib/env/results.h"
+#include "lib/asserts/io.h"
 
 test_list **tests = NULL;
 struct test *current_test = NULL;
@@ -24,6 +25,10 @@ void criterion_register_test(const char *group, const char *name, void (*func)()
 void launch_tests()
 {
     for (test_list *tmp = *tests; tmp; tmp = tmp->next) {
+        clear_output_buffer();
+        clear_error_buffer();
+        replace_stdout();
+        replace_stderr();
         current_test = tmp->data;
         current_test->func();
         if (current_test->success) {
@@ -31,6 +36,8 @@ void launch_tests()
         } else {
             criterion_failure();  
         }
+        restore_stdout();
+        restore_stderr();
     }
 }
 
