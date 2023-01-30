@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "launcher/config.h"
+#include "config.h"
 
 void launch_tests()
 {
