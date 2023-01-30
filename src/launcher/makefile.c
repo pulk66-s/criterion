@@ -38,6 +38,7 @@ static char *additionnal_sources[] = {
     "src/lib/env/results.c",
     "src/lib/tests/tests.c",
     "src/lib/asserts/asserts.c",
+    "src/lib/asserts/string.c",
     NULL
 };
 
