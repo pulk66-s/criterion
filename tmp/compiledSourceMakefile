@@ -1,10 +1,15 @@
-SRC = 	tests/folder/test2.c \
+SRC = 	src/lib/env/results.c \
+	src/lib/launch/main.c \
+	src/types/linked_list.c \
+	src/types/tests.c \
+	tests/folder/test2.c \
 	tests/folder/test1.c \
 	tests/test2.c \
 	tests/test1.c \
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra
+INCLUDES = -I./src
+CFLAGS = -W -Wall -Wextra $(INCLUDES)
 NAME = ./tmp/criterion_compiled_sources
 OBJ = $(SRC:.c=.o)
 

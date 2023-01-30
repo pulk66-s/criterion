@@ -6,7 +6,8 @@
 
 static char *makefile_lines[] = {
     "CC = gcc",
-    "CFLAGS = -W -Wall -Wextra",
+    "INCLUDES = -I./src",
+    "CFLAGS = -W -Wall -Wextra $(INCLUDES)",
     "NAME = ./tmp/criterion_compiled_sources",
     "OBJ = $(SRC:.c=.o)",
     "",
@@ -30,6 +31,14 @@ static char *makefile_lines[] = {
     NULL
 };
 
+static char *additionnal_sources[] = {
+    "src/types/tests.c",
+    "src/types/linked_list.c",
+    "src/lib/launch/main.c",
+    "src/lib/env/results.c",
+    NULL
+};
+
 static void write_files_list(files_list **files, FILE *makefile)
 {
     fprintf(makefile, "SRC = ");
@@ -40,8 +49,16 @@ static void write_files_list(files_list **files, FILE *makefile)
     fprintf(makefile, "\n");
 }
 
+static void fill_additionnal_sources(files_list **files)
+{
+    for (size_t i = 0; additionnal_sources[i]; i++) {
+        add_file(files, (struct file) { .path = strdup(additionnal_sources[i]) });
+    }
+}
+
 static void fill_makefile(files_list **files, FILE *makefile)
 {
+    fill_additionnal_sources(files);
     write_files_list(files, makefile);
     for (size_t i = 0; makefile_lines[i]; i++)
         fprintf(makefile, "%s\n", makefile_lines[i]);
@@ -69,7 +86,7 @@ int launch_program(const char *path)
 
 int launch_makefile(const char *name, const char *dir)
 {
-    char *base_cmd = "make -f ";
+    char *base_cmd = "make re -f ";
     size_t base_cmd_size = strlen(base_cmd);
     char *file_path = build_file_path(dir, name);
     size_t cmd_size = base_cmd_size + strlen(file_path) + 1;

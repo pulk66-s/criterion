@@ -21,5 +21,4 @@ void launch_tests()
     }
     free_files(files);
     free(files);
-    printf("Launching tests from folder: %s\n", folder_name);
 }
