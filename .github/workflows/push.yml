@@ -20,3 +20,35 @@ jobs:
       - name: Run tests
         run: ./criterion
 
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/release'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependecies
+        run: sudo apt install gcc make
+      - name: Create release zip
+        run: zip criterion.zip criterion * -x "*.git*" -x "*.github*"
+      - name: Build
+        run: make
+      - name: Run tests
+        run: ./criterion
+      - name: Upload release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./criterion
+          asset_name: criterion
+          asset_content_type: application/octet-stream
+      - name: Upload release zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./criterion.zip
+          asset_name: criterion.zip
+          asset_content_type: application/zip
