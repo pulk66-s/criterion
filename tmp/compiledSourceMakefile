@@ -1,9 +1,14 @@
 SRC = 	src/lib/asserts/io.c \
 	src/lib/asserts/string.c \
 	src/lib/asserts/asserts.c \
+	src/lib/memory/datas.c \
+	src/lib/memory/free.c \
+	src/lib/memory/malloc.c \
+	src/lib/tests/memory.c \
 	src/lib/tests/tests.c \
 	src/lib/env/results.c \
 	src/lib/launch/main.c \
+	src/types/memory_leak.c \
 	src/types/linked_list.c \
 	src/types/tests.c \
 	tests/test1.c \
@@ -20,17 +25,17 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	@$(CC) -o $(NAME) $(OBJ)
 
 clean:
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
 
 %.o: %.c
-	$(CC) -o $@ -c $< $(CFLAGS)
+	@$(CC) -o $@ -c $< $(CFLAGS)

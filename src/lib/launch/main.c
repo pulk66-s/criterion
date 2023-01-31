@@ -19,7 +19,7 @@ int main(void)
 {
     launch_tests();
     struct criterion_tests_results results = criterion_get_results();
-    printf("Passed: %d, Failed: %d, Total: %d", results.passed, results.failed, results.total);
+    printf("Passed: %d, Failed: %d, Total: %d\n", results.passed, results.failed, results.total);
     print_details();
     clear_tests();
     return 0;

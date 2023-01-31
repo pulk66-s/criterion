@@ -14,29 +14,34 @@ static char *makefile_lines[] = {
     "all: $(NAME)",
     "",
     "$(NAME): $(OBJ)",
-    "\t$(CC) -o $(NAME) $(OBJ)",
+    "\t@$(CC) -o $(NAME) $(OBJ)",
     "",
     "clean:",
-    "\t$(RM) $(OBJ)",
+    "\t@$(RM) $(OBJ)",
     "",
     "fclean: clean",
-    "\t$(RM) $(NAME)",
+    "\t@$(RM) $(NAME)",
     "",
     "re: fclean all",
     "",
     ".PHONY: all clean fclean re",
     "",
     "%.o: %.c",
-    "\t$(CC) -o $@ -c $< $(CFLAGS)",
+    "\t@$(CC) -o $@ -c $< $(CFLAGS)",
     NULL
 };
 
 static char *additionnal_sources[] = {
     "src/types/tests.c",
     "src/types/linked_list.c",
+    "src/types/memory_leak.c",
     "src/lib/launch/main.c",
     "src/lib/env/results.c",
     "src/lib/tests/tests.c",
+    "src/lib/tests/memory.c",
+    "src/lib/memory/malloc.c",
+    "src/lib/memory/free.c",
+    "src/lib/memory/datas.c",
     "src/lib/asserts/asserts.c",
     "src/lib/asserts/string.c",
     "src/lib/asserts/io.c",
@@ -90,7 +95,7 @@ int launch_program(const char *path)
 
 int launch_makefile(const char *name, const char *dir)
 {
-    char *base_cmd = "make -f ";
+    char *base_cmd = "make re -f ";
     size_t base_cmd_size = strlen(base_cmd);
     char *file_path = build_file_path(dir, name);
     size_t cmd_size = base_cmd_size + strlen(file_path) + 1;
