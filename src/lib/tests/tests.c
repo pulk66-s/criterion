@@ -5,8 +5,8 @@
 #include "lib/env/results.h"
 #include "lib/asserts/io.h"
 
-test_list **tests = NULL;
-struct test *current_test = NULL;
+static test_list **tests = NULL;
+static struct test *current_test = NULL;
 
 void criterion_register_test(const char *group, const char *name, void (*func)())
 {
@@ -56,4 +56,9 @@ void current_test_set_success(int success)
 {
     if (current_test->success != 0)
         current_test->success = success;
+}
+
+test_list **criterion_get_tests()
+{
+    return tests;
 }
