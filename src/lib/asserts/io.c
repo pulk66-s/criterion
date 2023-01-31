@@ -36,16 +36,12 @@ void clear_error_buffer()
 
 void assert_stdout(const char *expected)
 {
-    struct test *test = get_current_test();
-
-    test->success = strcmp(std_output_buffer, expected) == 0;
+    current_test_set_success(strcmp(std_output_buffer, expected) == 0);
 }
 
 void assert_stderr(const char *expected)
 {
-    struct test *test = get_current_test();
-
-    test->success = strcmp(std_error_buffer, expected) == 0;
+    current_test_set_success(strcmp(std_error_buffer, expected) == 0);
 }
 
 void replace_stderr()

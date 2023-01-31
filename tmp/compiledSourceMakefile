@@ -6,10 +6,10 @@ SRC = 	src/lib/asserts/io.c \
 	src/lib/launch/main.c \
 	src/types/linked_list.c \
 	src/types/tests.c \
+	tests/test1.c \
 	tests/folder/test2.c \
 	tests/folder/test1.c \
 	tests/test2.c \
-	tests/test1.c \
 
 CC = gcc
 INCLUDES = -I./src

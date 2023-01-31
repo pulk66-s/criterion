@@ -18,7 +18,7 @@ void criterion_register_test(const char *group, const char *name, void (*func)()
         .name = strdup(name),
         .group = strdup(group),
         .func = func,
-        .success = 0
+        .success = -1
     });
 }
 
@@ -50,4 +50,10 @@ void clear_tests()
 {
     free_tests(tests);
     free(tests);
+}
+
+void current_test_set_success(int success)
+{
+    if (current_test->success != 0)
+        current_test->success = success;
 }

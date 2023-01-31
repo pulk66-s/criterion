@@ -90,7 +90,7 @@ int launch_program(const char *path)
 
 int launch_makefile(const char *name, const char *dir)
 {
-    char *base_cmd = "make re -f ";
+    char *base_cmd = "make -f ";
     size_t base_cmd_size = strlen(base_cmd);
     char *file_path = build_file_path(dir, name);
     size_t cmd_size = base_cmd_size + strlen(file_path) + 1;

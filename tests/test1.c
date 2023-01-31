@@ -45,3 +45,10 @@ Test(output, stderr2)
     fprintf(stderr, "Hello2");
     assert_stderr("Hello");
 }
+
+Test(multiple, basic1)
+{
+    cr_assert(1 == 1);
+    cr_assert(1 == 2);
+    cr_assert(1 == 1);
+}
