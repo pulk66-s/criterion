@@ -31,10 +31,13 @@ static void free_leak(void *ptr)
 
     free(leak->file);
     free(leak->function_name);
+    free(leak->ptr);
 }
 
 void free_leaks(memory_leak_list **leaks)
 {
+    if (!leaks || !*leaks)
+        return;
     linked_list_foreach(leaks, free_leak);
     linked_list_free(leaks);
 }
@@ -49,6 +52,7 @@ static int delete_leak_condition(void *leak, void *to_delete)
         && l->file == d->file
         && l->line == d->line
         && l->function_name == d->function_name
+        && l->ptr == d->ptr
     );
 }
 

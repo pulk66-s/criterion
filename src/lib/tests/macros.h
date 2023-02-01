@@ -15,17 +15,17 @@
     #define MemoryTest(group, name, call) \
         static void __attribute__((constructor)) __##name##group(void) \
         { \
-            criterion_setup_memory(0); \
+            criterion_setup_memory(); \
             call; \
             criterion_teardown_memory(0); \
         } \
 
-    #define MemoryTestReturnLeak(group, name, call) \
+    #define MemoryTestLeakAllowed(group, name, call, leak_allowed) \
         static void __attribute__((constructor)) __##name##group(void) \
         { \
-            criterion_setup_memory(1); \
+            criterion_setup_memory(); \
             call; \
-            criterion_teardown_memory(1); \
+            criterion_teardown_memory(leak_allowed); \
         } \
 
 #endif

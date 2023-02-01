@@ -7,9 +7,9 @@ void *my_malloc(size_t size, const char *file, size_t line, const char *func)
     if (memory_leak_checking_is_enabled()) {
         add_memory_leak((struct memory_leak) {
             .block_size = size,
-            .file = (char *) file,
+            .file = strdup(file),
             .line = line,
-            .function_name = (char *) func,
+            .function_name = strdup(func),
             .ptr = ptr
         });
     }

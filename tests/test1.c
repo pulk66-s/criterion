@@ -75,4 +75,5 @@ void *return_ptr(const char *str)
 
 MemoryTest(basic, memory_leak, memory_leak_func("Hello"));
 MemoryTest(basic, memory_leak2, memory_leak_func_2("Hello2"));
+MemoryTestLeakAllowed(basic, memory_leak3, memory_leak_func_2("Hello2"), 1);
 // MemoryTest(basic, memory_leak2, memory_leak_func("Hello2"));

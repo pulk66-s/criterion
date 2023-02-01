@@ -25,7 +25,8 @@ void linked_list_foreach(struct linked_list **list, void (*callback)(void *))
 {
     struct linked_list *current = *list;
     while (current != NULL) {
-        callback(current->data);
+        if (current->data)
+            callback(current->data);
         current = current->next;
     }
 }

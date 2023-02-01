@@ -11,7 +11,6 @@ static void reset_memory_leak_checking()
         free_leaks(leaks);
         free(leaks);
     }
-    leaks = NULL;
     leaks = malloc(sizeof(struct memory_leak *));
     *leaks = NULL;
 }
@@ -19,8 +18,7 @@ static void reset_memory_leak_checking()
 void set_memory_leak_checking(int value)
 {
     memory_leak_checking = value;
-    if (value)
-        reset_memory_leak_checking();
+    reset_memory_leak_checking();
 }
 
 int memory_leak_checking_is_enabled()

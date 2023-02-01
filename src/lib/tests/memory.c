@@ -2,7 +2,7 @@
 #include "lib/memory/datas.h"
 #include <stdio.h>
 
-void criterion_setup_memory(int return_leak_allowed)
+void criterion_setup_memory()
 {
     set_memory_leak_checking(1);
 }
@@ -30,17 +30,17 @@ static int get_leaks_count(memory_leak_list **leaks)
     return count;
 }
 
-static void check_leaks()
+static void check_leaks(int nb_leaks_allowed)
 {
     memory_leak_list **leaks = get_leaks();
 
-    if (get_leaks_count(leaks) > 0) {
+    if (get_leaks_count(leaks) != nb_leaks_allowed) {
         print_leaks(leaks);
     }
 }
 
-void criterion_teardown_memory(int return_leak_allowed)
+void criterion_teardown_memory(int nb_leaks_allowed)
 {
-    check_leaks();
+    check_leaks(nb_leaks_allowed);
     set_memory_leak_checking(0);
 }
