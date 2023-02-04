@@ -10,6 +10,7 @@ SRC				= src/main.c \
 				src/types/linked_list.c \
 				src/types/files.c
 OBJ				= $(SRC:.c=.o)
+GCNO			= $(SRC:.c=.gcno)
 NAME			= criterion
 
 all: $(NAME)
@@ -18,9 +19,12 @@ $(NAME): $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)
 
 clean:
+	make -f tmp/compiledSourceMakefile clean
 	$(RM) $(OBJ)
+	$(RM) $(GCNO)
 
 fclean: clean
+	make -f tmp/compiledSourceMakefile fclean
 	$(RM) $(NAME)
 
 re: fclean all
