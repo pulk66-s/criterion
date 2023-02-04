@@ -14,7 +14,7 @@ static char *makefile_lines[] = {
     "all: $(NAME)",
     "",
     "$(NAME): $(OBJ)",
-    "\t@$(CC) -o $(NAME) $(OBJ)",
+    "\t@$(CC) -fprofile-arcs -ftest-coverage -o $(NAME) $(OBJ)",
     "",
     "clean:",
     "\t@$(RM) $(OBJ)",

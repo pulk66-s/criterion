@@ -1,4 +1,5 @@
 *.o
+*.gcno
 criterion
 criterion_compiled_sources
 .vscode

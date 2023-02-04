@@ -25,7 +25,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) -o $(NAME) $(OBJ)
+	@$(CC) -fprofile-arcs -ftest-coverage -o $(NAME) $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)

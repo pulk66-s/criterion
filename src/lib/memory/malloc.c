@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "lib/memory/datas.h"
 
 void *my_malloc(size_t size, const char *file, size_t line, const char *func)

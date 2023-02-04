@@ -56,24 +56,24 @@ Test(multiple, basic1)
     cr_assert(1 == 1);
 }
 
-void memory_leak_func(const char *str)
+void memory_leak_func()
 {
     char *ptr = malloc(sizeof(char) * 10);
     free(ptr);
 }
 
-void memory_leak_func_2(const char *str)
+void memory_leak_func_2()
 {
-    char *ptr = malloc(sizeof(char) * 10);
+    __attribute__((unused))char *ptr = malloc(sizeof(char) * 10);
 }
 
-void *return_ptr(const char *str)
+void *return_ptr()
 {
     char *ptr = malloc(sizeof(char) * 10);
     return ptr;
 }
 
-MemoryTest(basic, memory_leak, memory_leak_func("Hello"));
-MemoryTest(basic, memory_leak2, memory_leak_func_2("Hello2"));
-MemoryTestLeakAllowed(basic, memory_leak3, memory_leak_func_2("Hello2"), 1);
+MemoryTest(basic, memory_leak, memory_leak_func());
+MemoryTest(basic, memory_leak2, memory_leak_func_2());
+MemoryTestLeakAllowed(basic, memory_leak3, memory_leak_func_2(), 1);
 // MemoryTest(basic, memory_leak2, memory_leak_func("Hello2"));
