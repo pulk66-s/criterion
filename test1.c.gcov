@@ -1,0 +1,176 @@
+        -:    0:Source:tests/test1.c
+        -:    1:#include "lib/tests/macros.h"
+        -:    2:#include "lib/asserts.h"
+        -:    3:#include "lib/memory/malloc.h"
+        -:    4:#include "lib/memory/free.h"
+        -:    5:#include <stdio.h>
+        -:    6:#include <string.h>
+        -:    7:
+        2:    8:Test(basic_test, test1)
+        -:    9:{
+        1:   10:    cr_assert(1 == 1);
+        1:   11:}
+------------------
+test1basic_test:
+        1:    8:Test(basic_test, test1)
+        -:    9:{
+        1:   10:    cr_assert(1 == 1);
+        1:   11:}
+------------------
+__test1basic_test:
+        1:    8:Test(basic_test, test1)
+------------------
+        -:   12:
+        2:   13:Test(basic_test, test2)
+        -:   14:{
+        1:   15:    cr_assert(1 == 2);
+        1:   16:}
+------------------
+test2basic_test:
+        1:   13:Test(basic_test, test2)
+        -:   14:{
+        1:   15:    cr_assert(1 == 2);
+        1:   16:}
+------------------
+__test2basic_test:
+        1:   13:Test(basic_test, test2)
+------------------
+        -:   17:
+        2:   18:Test(string, test1)
+        -:   19:{
+        1:   20:    cr_assert_str_eq("Hello", "Hello");
+        1:   21:}
+------------------
+test1string:
+        1:   18:Test(string, test1)
+        -:   19:{
+        1:   20:    cr_assert_str_eq("Hello", "Hello");
+        1:   21:}
+------------------
+__test1string:
+        1:   18:Test(string, test1)
+------------------
+        -:   22:
+        2:   23:Test(string, test2)
+        -:   24:{
+        1:   25:    cr_assert_str_neq("Hello", "Hello");
+        1:   26:}
+------------------
+test2string:
+        1:   23:Test(string, test2)
+        -:   24:{
+        1:   25:    cr_assert_str_neq("Hello", "Hello");
+        1:   26:}
+------------------
+__test2string:
+        1:   23:Test(string, test2)
+------------------
+        -:   27:
+        2:   28:Test(output, stdout)
+        -:   29:{
+        1:   30:    printf("Hello");
+        1:   31:    assert_stdout("Hello");
+        1:   32:}
+------------------
+stdoutoutput:
+        1:   28:Test(output, stdout)
+        -:   29:{
+        1:   30:    printf("Hello");
+        1:   31:    assert_stdout("Hello");
+        1:   32:}
+------------------
+__stdoutoutput:
+        1:   28:Test(output, stdout)
+------------------
+        -:   33:
+        2:   34:Test(output, stdout2)
+        -:   35:{
+        1:   36:    printf("Hello2");
+        1:   37:    assert_stdout("Hello2");
+        1:   38:}
+------------------
+stdout2output:
+        1:   34:Test(output, stdout2)
+        -:   35:{
+        1:   36:    printf("Hello2");
+        1:   37:    assert_stdout("Hello2");
+        1:   38:}
+------------------
+__stdout2output:
+        1:   34:Test(output, stdout2)
+------------------
+        -:   39:
+        2:   40:Test(output, stderr)
+        -:   41:{
+        1:   42:    fprintf(stderr, "Hello");
+        1:   43:    assert_stderr("Hello");
+        1:   44:}
+------------------
+stderroutput:
+        1:   40:Test(output, stderr)
+        -:   41:{
+        1:   42:    fprintf(stderr, "Hello");
+        1:   43:    assert_stderr("Hello");
+        1:   44:}
+------------------
+__stderroutput:
+        1:   40:Test(output, stderr)
+------------------
+        -:   45:
+        2:   46:Test(output, stderr2)
+        -:   47:{
+        1:   48:    fprintf(stderr, "Hello2");
+        1:   49:    assert_stderr("Hello");
+        1:   50:}
+------------------
+stderr2output:
+        1:   46:Test(output, stderr2)
+        -:   47:{
+        1:   48:    fprintf(stderr, "Hello2");
+        1:   49:    assert_stderr("Hello");
+        1:   50:}
+------------------
+__stderr2output:
+        1:   46:Test(output, stderr2)
+------------------
+        -:   51:
+        2:   52:Test(multiple, basic1)
+        -:   53:{
+        1:   54:    cr_assert(1 == 1);
+        1:   55:    cr_assert(1 == 2);
+        1:   56:    cr_assert(1 == 1);
+        1:   57:}
+------------------
+basic1multiple:
+        1:   52:Test(multiple, basic1)
+        -:   53:{
+        1:   54:    cr_assert(1 == 1);
+        1:   55:    cr_assert(1 == 2);
+        1:   56:    cr_assert(1 == 1);
+        1:   57:}
+------------------
+__basic1multiple:
+        1:   52:Test(multiple, basic1)
+------------------
+        -:   58:
+        1:   59:void memory_leak_func()
+        -:   60:{
+        1:   61:    char *ptr = malloc(sizeof(char) * 10);
+        1:   62:    free(ptr);
+        1:   63:}
+        -:   64:
+        2:   65:void memory_leak_func_2()
+        -:   66:{
+        2:   67:    __attribute__((unused))char *ptr = malloc(sizeof(char) * 10);
+        2:   68:}
+        -:   69:
+    #####:   70:void *return_ptr()
+        -:   71:{
+    #####:   72:    char *ptr = malloc(sizeof(char) * 10);
+    #####:   73:    return ptr;
+        -:   74:}
+        -:   75:
+        1:   76:MemoryTest(basic, memory_leak, memory_leak_func());
+        1:   77:MemoryTest(basic, memory_leak2, memory_leak_func_2());
+        1:   78:MemoryTestLeakAllowed(basic, memory_leak3, memory_leak_func_2(), 1);
+        -:   79:// MemoryTest(basic, memory_leak2, memory_leak_func("Hello2"));

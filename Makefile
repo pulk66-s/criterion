@@ -8,7 +8,9 @@ SRC				= src/main.c \
 				src/launcher/makefile.c \
 				src/launcher/files_utils.c \
 				src/types/linked_list.c \
-				src/types/files.c
+				src/types/files.c \
+				src/lib/string/join.c \
+
 OBJ				= $(SRC:.c=.o)
 GCNO			= $(SRC:.c=.gcno)
 NAME			= criterion

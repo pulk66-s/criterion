@@ -14,5 +14,6 @@ void add_file(files_list **files, struct file file);
 void dump_files(files_list **files);
 void dump_file(struct file file);
 void free_files(files_list **files);
+char **files_to_array(files_list **files);
 
 #endif

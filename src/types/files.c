@@ -1,5 +1,6 @@
 #include "types/files.h"
 #include <stdio.h>
+#include <string.h>
 
 void add_file(files_list **files, struct file file)
 {
@@ -36,4 +37,23 @@ void free_files(files_list **files)
 {
     linked_list_foreach(files, free_file);
     linked_list_free(files);
+}
+
+size_t files_list_size(files_list **files)
+{
+    return linked_list_size(files);
+}
+
+char **files_to_array(files_list **files)
+{
+    files_list *tmp = *files;
+    size_t size = files_list_size(files);
+    char **array = malloc(sizeof(char *) * (size + 1));
+
+    memset(array, 0, sizeof(char *) * (size + 1));
+    for (size_t i = 0; i < size; i++) {
+        array[i] = strdup(((struct file *)tmp->data)->path);
+        tmp = tmp->next;
+    }
+    return array;
 }

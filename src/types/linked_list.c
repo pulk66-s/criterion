@@ -64,3 +64,15 @@ void *linked_list_get(struct linked_list **list, void *to_get, int (*condition)(
     }
     return NULL;
 }
+
+size_t linked_list_size(struct linked_list **list)
+{
+    struct linked_list *current = *list;
+    size_t size = 0;
+
+    while (current != NULL) {
+        size++;
+        current = current->next;
+    }
+    return size;
+}
