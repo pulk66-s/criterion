@@ -1,5 +1,8 @@
 *.o
 *.gcno
+*.gcda
+NUL
+tmp/compiledSourceMakefile
 criterion
 criterion_compiled_sources
 .vscode

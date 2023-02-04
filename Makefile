@@ -22,6 +22,7 @@ clean:
 	make -f tmp/compiledSourceMakefile clean
 	$(RM) $(OBJ)
 	$(RM) $(GCNO)
+	$(RM) *.gcov
 
 fclean: clean
 	make -f tmp/compiledSourceMakefile fclean
