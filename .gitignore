@@ -8,3 +8,5 @@ criterion_compiled_sources
 .vscode
 **/a.out
 *.a
+*.gcov
+vgcore.*
