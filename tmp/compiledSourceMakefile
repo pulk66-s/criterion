@@ -1,4 +1,4 @@
-CFLAGS = -I./tests/basic_libc/ 
+CFLAGS = -I ./tests/basic_libc/ 
 SRC = 	src/lib/asserts/io.c \
 	src/lib/asserts/string.c \
 	src/lib/asserts/asserts.c \
