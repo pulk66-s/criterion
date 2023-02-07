@@ -6,3 +6,5 @@ tmp/compiledSourceMakefile
 criterion
 criterion_compiled_sources
 .vscode
+**/a.out
+*.a

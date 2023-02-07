@@ -3,6 +3,7 @@ INCLUDES		= -Isrc/
 CFLAGS			= -W -Wall -Wextra -g3 $(INCLUDES)
 SRC				= src/main.c \
 				src/config/folder.c \
+				src/config/makefile_flags.c \
 				src/launcher/launch.c \
 				src/launcher/get_files.c \
 				src/launcher/makefile.c \
@@ -10,6 +11,10 @@ SRC				= src/main.c \
 				src/types/linked_list.c \
 				src/types/files.c \
 				src/lib/string/join.c \
+				src/lib/string/split.c \
+				src/args/args.c \
+				src/args/flags_list.c \
+				src/args/help.c
 
 OBJ				= $(SRC:.c=.o)
 GCNO			= $(SRC:.c=.gcno)

@@ -38,7 +38,7 @@ void launch_tests()
         printf("Error while launching tests\n");
         return;
     }
-    launch_coverage(get_files(folder_name)  );
+    launch_coverage(get_files(folder_name));
     free_files(files);
     free(files);
 }

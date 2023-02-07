@@ -1,5 +1,6 @@
 #include "launcher/makefile.h"
 #include "launcher/files_utils.h"
+#include "config.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -8,7 +9,7 @@ static char *makefile_lines[] = {
     "CC = gcc",
     "INCLUDES = -I./src",
     "COV_FLAGS = -lgcov --coverage -fprofile-arcs -ftest-coverage",
-    "CFLAGS = -W -Wall -Wextra $(COV_FLAGS) $(INCLUDES) -g3",
+    "CFLAGS += -W -Wall -Wextra $(COV_FLAGS) $(INCLUDES) -g3",
     "NAME = ./tmp/criterion_compiled_sources",
     "OBJ = $(SRC:.c=.o)",
     "GCNO = $(SRC:.c=.gcno)",
@@ -70,9 +71,21 @@ static void fill_additionnal_sources(files_list **files)
     }
 }
 
+static void fill_additionnal_flags(FILE *makefile)
+{
+    struct linked_list *flags = get_makefile_flags();
+
+    fprintf(makefile, "CFLAGS = ");
+    for (struct linked_list *tmp = flags; tmp; tmp = tmp->next) {
+        fprintf(makefile, "%s ", (char *) tmp->data);
+    }
+    fprintf(makefile, "\n");
+}
+
 static void fill_makefile(files_list **files, FILE *makefile)
 {
     fill_additionnal_sources(files);
+    fill_additionnal_flags(makefile);
     write_files_list(files, makefile);
     for (size_t i = 0; makefile_lines[i]; i++)
         fprintf(makefile, "%s\n", makefile_lines[i]);

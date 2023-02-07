@@ -1,0 +1,13 @@
+        -:    0:Source:tests/basic_libc/src/strlen.c
+        -:    1:#include "libc.h"
+        -:    2:
+        3:    3:size_t my_strlen(const char *s)
+        -:    4:{
+        3:    5:    size_t len = 0;
+        -:    6:
+        3:    7:    if (!s)
+        1:    8:        return len;
+        7:    9:    while (s[len])
+        5:   10:        len++;
+        2:   11:    return len;
+        -:   12:}
