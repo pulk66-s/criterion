@@ -23,16 +23,16 @@ static files_list **filter_compiled_files(files_list **files)
 
 static files_list **filter_non_compiled_files(files_list **files)
 {
-    files_list **compiled_files = malloc(sizeof(files_list *));
-    *compiled_files = NULL;
+    files_list **non_compiled_files = malloc(sizeof(files_list *));
+    *non_compiled_files = NULL;
 
     for (files_list *tmp = *files; tmp; tmp = tmp->next) {
         struct file *data = get_file_data(tmp);
         if (!file_is_compiled(data->path)) {
-            add_file(compiled_files, *data);
+            add_file(non_compiled_files, *data);
         }
     }
-    return compiled_files;
+    return non_compiled_files;
 }
 
 static void print_non_compiled_files(files_list **files)
@@ -54,16 +54,23 @@ static void launch_coverage(files_list **files)
     memset(command, 0, sizeof(char) * (size));
 
     sprintf(command, "gcov %s", files_str);
-    if (launch_program(command) < 0) {
+    if (launch_program(command) >= 0)
+        print_non_compiled_files(non_compiled_files);
+    else
         printf("Error while launching coverage\n");
-        return;
-    }
-    print_non_compiled_files(non_compiled_files);
+
     free(command);
     free(files_str);
+
     for (size_t i = 0; files_array[i]; i++)
         free(files_array[i]);
     free(files_array);
+
+    free_files(compiled_files);
+    free(compiled_files);
+
+    free_files(non_compiled_files);
+    free(non_compiled_files);
 }
 
 void launch_tests()
@@ -74,17 +81,16 @@ void launch_tests()
     create_makefile(files, "compiledSourceMakefile", "./tmp");
     if (launch_makefile("compiledSourceMakefile", "./tmp") < 0) {
         printf("Error while compiling tests\n");
-        goto free_files;
+        goto launch_tests_free_files;
     }
     if (launch_program("./tmp/criterion_compiled_sources") < 0) {
         printf("Error while launching tests\n");
-        goto free_files;
+        goto launch_tests_free_files;
     }
     files_list **tmp = get_files(folder_name);
     launch_coverage(tmp);
-    free_files(tmp);
-    free(tmp);
-free_files:
+
+launch_tests_free_files:
     free_files(files);
     free(files);
 }

@@ -20,6 +20,5 @@ static void __attribute__((constructor)) init_test_folder()
 
 static void __attribute__((destructor)) free_test_folder()
 {
-    if (test_folder)
-        free(test_folder);
+    free(test_folder);
 }

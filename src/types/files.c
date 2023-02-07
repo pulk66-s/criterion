@@ -30,7 +30,8 @@ static void free_file(void *ptr)
 {
     struct file *file = ptr;
 
-    free(file->path);
+    if (file->path)
+        free(file->path);
 }
 
 void free_files(files_list **files)
