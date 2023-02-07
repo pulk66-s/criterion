@@ -10,7 +10,7 @@ static void launch_coverage(files_list **files)
 {
     char **files_array = files_to_array(files);
     char *files_str = join(files_array, " ");
-    size_t size = strlen(files_str) + 5;
+    size_t size = strlen(files_str) + 6;
     char *command = malloc(sizeof(char) * (size));
     memset(command, 0, sizeof(char) * (size));
 
@@ -21,6 +21,8 @@ static void launch_coverage(files_list **files)
     }
     free(command);
     free(files_str);
+    for (size_t i = 0; files_array[i]; i++)
+        free(files_array[i]);
     free(files_array);
 }
 
@@ -32,13 +34,17 @@ void launch_tests()
     create_makefile(files, "compiledSourceMakefile", "./tmp");
     if (launch_makefile("compiledSourceMakefile", "./tmp") < 0) {
         printf("Error while compiling tests\n");
-        return;
+        goto free_files;
     }
     if (launch_program("./tmp/criterion_compiled_sources") < 0) {
         printf("Error while launching tests\n");
-        return;
+        goto free_files;
     }
-    launch_coverage(get_files(folder_name));
+    files_list **tmp = get_files(folder_name);
+    launch_coverage(tmp);
+    free_files(tmp);
+    free(tmp);
+free_files:
     free_files(files);
     free(files);
 }

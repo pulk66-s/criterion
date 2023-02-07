@@ -13,8 +13,8 @@ char *join(char **strs, char *sep)
         if (strs[i + 1])
             size += sep_size;
     }
-    joined = malloc(size + 1);
-    memset(joined, 0, size + 1);
+    joined = malloc(sizeof(char) * (size + 1));
+    memset(joined, 0, sizeof(char) * (size + 1));
     for (size_t i = 0; strs[i]; i++) {
         strcat(joined, strs[i]);
         if (strs[i + 1])

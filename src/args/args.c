@@ -6,13 +6,6 @@
 #include <string.h>
 #include <stdio.h>
 
-static void extract_command(char **command, char *arg)
-{
-    if (*command)
-        free(*command);
-    *command = strdup(arg);
-}
-
 static int parse_arg(char *command, char *arg)
 {
     if (!command)
@@ -33,19 +26,28 @@ static int command_loop(int ac, char **av)
 
     for (int i = 1; i < ac; ++i) {
         if (av[i][0] == '-') {
-            extract_command(&command, av[i]);
+            if (command)
+                free(command);
+            command = strdup(av[i]);
             if (is_help_flag(command)) {
                 print_help();
+                if (command)
+                    free(command);
                 return HELP_RETURN_CODE;
             }
             if (i < ac - 1) {
                 int res = parse_arg(command, av[i + 1]);
 
-                if (res)
-                    return res;
+                if (res) {
+                    if (command)
+                        free(command);
+                   return res;
+                }
             }
         }
     }
+    if (command)
+        free(command);
     return 0;
 }
 
