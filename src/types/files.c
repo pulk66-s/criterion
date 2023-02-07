@@ -57,3 +57,8 @@ char **files_to_array(files_list **files)
     }
     return array;
 }
+
+struct file *get_file_data(files_list *file)
+{
+    return file->data;
+}

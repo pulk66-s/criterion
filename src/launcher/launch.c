@@ -2,13 +2,52 @@
 #include <string.h>
 #include "config.h"
 #include "launcher/get_files.h"
+#include "launcher/files_utils.h"
 #include "launcher/makefile.h"
 #include "types/files.h"
 #include "lib/string/join.h"
 
+static files_list **filter_compiled_files(files_list **files)
+{
+    files_list **compiled_files = malloc(sizeof(files_list *));
+    *compiled_files = NULL;
+
+    for (files_list *tmp = *files; tmp; tmp = tmp->next) {
+        struct file *data = get_file_data(tmp);
+        if (file_is_compiled(data->path)) {
+            add_file(compiled_files, *data);
+        }
+    }
+    return compiled_files;
+}
+
+static files_list **filter_non_compiled_files(files_list **files)
+{
+    files_list **compiled_files = malloc(sizeof(files_list *));
+    *compiled_files = NULL;
+
+    for (files_list *tmp = *files; tmp; tmp = tmp->next) {
+        struct file *data = get_file_data(tmp);
+        if (!file_is_compiled(data->path)) {
+            add_file(compiled_files, *data);
+        }
+    }
+    return compiled_files;
+}
+
+static void print_non_compiled_files(files_list **files)
+{
+    for (files_list *tmp = *files; tmp; tmp = tmp->next) {
+        struct file *data = get_file_data(tmp);
+        printf("File %s is not tested\n", data->path);
+    }
+}
+
 static void launch_coverage(files_list **files)
 {
-    char **files_array = files_to_array(files);
+    files_list **compiled_files = filter_compiled_files(files);
+    files_list **non_compiled_files = filter_non_compiled_files(files);
+    char **files_array = files_to_array(compiled_files);
     char *files_str = join(files_array, " ");
     size_t size = strlen(files_str) + 6;
     char *command = malloc(sizeof(char) * (size));
@@ -19,6 +58,7 @@ static void launch_coverage(files_list **files)
         printf("Error while launching coverage\n");
         return;
     }
+    print_non_compiled_files(non_compiled_files);
     free(command);
     free(files_str);
     for (size_t i = 0; files_array[i]; i++)

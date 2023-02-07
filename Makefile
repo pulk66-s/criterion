@@ -12,6 +12,7 @@ SRC				= src/main.c \
 				src/types/files.c \
 				src/lib/string/join.c \
 				src/lib/string/split.c \
+				src/lib/string/is_in.c \
 				src/lib/arr/reverse.c \
 				src/lib/arr/size.c \
 				src/args/args.c \

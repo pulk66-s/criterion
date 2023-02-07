@@ -1,4 +1,6 @@
 #include "launcher/files_utils.h"
+#include "lib/string/split.h"
+#include "lib/string/is_in.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -55,4 +57,28 @@ FILE *create_file(const char *name, const char *dir)
     }
     free(file_path);
     return file;
+}
+
+static char *get_file_name(char *path)
+{
+    char **splitted_path = split(path, ".");
+    char *base = splitted_path[0];
+    size_t res_size = strlen(base) + 6;
+    char *res = malloc(sizeof(char) * (res_size));
+
+    memset(res, 0, sizeof(char) * (res_size));
+    strcat(res, base);
+    strcat(res, ".gcda");
+    for (size_t i = 0; splitted_path[i]; i++)
+        free(splitted_path[i]);
+    free(splitted_path);
+    return res;
+}
+
+int file_is_compiled(char *path)
+{
+    if (!is_in('.', path))
+        return 0;
+    char *file_name = get_file_name(path);
+    return file_exist(file_name, "./");
 }
